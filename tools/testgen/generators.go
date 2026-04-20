@@ -633,7 +633,7 @@ var EthCall = MethodTests{
 				msg := ethereum.CallMsg{
 					To: &t.chain.txinfo.CallMeContract.Addr,
 					// This is the expected input that makes the call pass.
-					// See https://github.com/ethereum/hive/blob/master/cmd/hivechain/contracts/callme.eas
+					// See https://github.com/gnosischain/hive/blob/master/cmd/hivechain/contracts/callme.eas
 					Data: []byte{0xff, 0x01},
 				}
 				result, err := t.eth.CallContract(ctx, msg, nil)
@@ -650,7 +650,7 @@ var EthCall = MethodTests{
 		{
 			Name: "call-callenv",
 			About: `Performs a call to the callenv contract, which echoes the EVM transaction environment.
-See https://github.com/ethereum/hive/tree/master/cmd/hivechain/contracts/callenv.eas for the output structure.`,
+See https://github.com/gnosischain/hive/tree/master/cmd/hivechain/contracts/callenv.eas for the output structure.`,
 			Run: func(ctx context.Context, t *T) error {
 				msg := ethereum.CallMsg{
 					To: &t.chain.txinfo.CallEnvContract.Addr,
@@ -669,7 +669,7 @@ See https://github.com/ethereum/hive/tree/master/cmd/hivechain/contracts/callenv
 			Name: "call-callenv-options-eip1559",
 			About: `Performs a call to the callenv contract, which echoes the EVM transaction environment.
 This call uses EIP1559 transaction options.
-See https://github.com/ethereum/hive/tree/master/cmd/hivechain/contracts/callenv.eas for the output structure.`,
+See https://github.com/gnosischain/hive/tree/master/cmd/hivechain/contracts/callenv.eas for the output structure.`,
 			Run: func(ctx context.Context, t *T) error {
 				sender, _ := t.chain.GetSender(1)
 				basefee := t.chain.Head().BaseFee()
@@ -791,7 +791,7 @@ var EthEstimateGas = MethodTests{
 					From: caller,
 					To:   &callme,
 					// This is the expected input that makes the call pass.
-					// See https://github.com/ethereum/hive/blob/master/cmd/hivechain/contracts/callme.eas
+					// See https://github.com/gnosischain/hive/blob/master/cmd/hivechain/contracts/callme.eas
 					Data: []byte{0xff, 0x01},
 				}
 				got, err := t.eth.EstimateGas(ctx, msg)
@@ -898,7 +898,7 @@ var EthEstimateGas = MethodTests{
 					"to":               to,
 					"value":            hexutil.Uint64(1),
 					"nonce":            hexutil.Uint64(nonce),
-					"maxFeePerBlobGas": "0x5",
+					"maxFeePerBlobGas": hexutil.Uint64(params.BlobTxMinBlobGasprice),
 					"blobVersionedHashes": []string{
 						"0x0100000000000000000000000000000000000000000000000000000000000000",
 					},
@@ -1016,7 +1016,9 @@ The server should return the accessed slots regardless of failure, and should re
 in the "error" field.`,
 			SpecOnly: true,
 			Run: func(ctx context.Context, t *T) error {
+				sender, _ := t.chain.GetSender(0)
 				msg := map[string]any{
+					"from":  sender,
 					"to":    t.chain.txinfo.CallRevertContract.Addr,
 					"gas":   hexutil.Uint64(100000),
 					"input": "0x01", // triggers error(string) revert
@@ -1790,7 +1792,7 @@ var EthSendRawTransaction = MethodTests{
 						{Address: emitContract, StorageKeys: []common.Hash{{0}, {1}}},
 					},
 					BlobHashes: sidecar.BlobHashes(),
-					BlobFeeCap: uint256.NewInt(params.BlobTxBlobGasPerBlob),
+					BlobFeeCap: uint256.NewInt(params.BlobTxMinBlobGasprice),
 					Sidecar:    sidecar,
 				}
 				tx := t.chain.MustSignTx(sender, txdata)

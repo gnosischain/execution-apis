@@ -2,43 +2,75 @@
   "config": {
     "chainId": 3503995874084926,
     "homesteadBlock": 0,
-    "eip150Block": 3,
-    "eip155Block": 6,
-    "eip158Block": 6,
-    "byzantiumBlock": 9,
-    "constantinopleBlock": 12,
-    "petersburgBlock": 15,
-    "istanbulBlock": 18,
-    "muirGlacierBlock": 21,
-    "berlinBlock": 24,
-    "londonBlock": 27,
-    "arrowGlacierBlock": 30,
-    "grayGlacierBlock": 33,
-    "mergeNetsplitBlock": 36,
-    "shanghaiTime": 390,
-    "cancunTime": 420,
-    "pragueTime": 450,
-    "terminalTotalDifficulty": 4732352,
-    "depositContractAddress": "0x0000000000000000000000000000000000000000",
-    "ethash": {},
+    "eip150Block": 0,
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0,
+    "petersburgBlock": 0,
+    "istanbulBlock": 0,
+    "muirGlacierBlock": 0,
+    "berlinBlock": 0,
+    "londonBlock": 0,
+    "arrowGlacierBlock": 0,
+    "grayGlacierBlock": 0,
+    "mergeNetsplitBlock": 0,
+    "shanghaiTime": 0,
+    "cancunTime": 30,
+    "pragueTime": 60,
+    "terminalTotalDifficulty": 0,
+    "depositContractAddress": "0xbabe2bed00000000000000000000000000000003",
     "blobSchedule": {
       "cancun": {
-        "target": 3,
-        "max": 6,
-        "baseFeeUpdateFraction": 3338477
+        "target": 1,
+        "max": 2,
+        "baseFeeUpdateFraction": 1112826
       },
       "prague": {
-        "target": 6,
-        "max": 9,
-        "baseFeeUpdateFraction": 5007716
+        "target": 1,
+        "max": 2,
+        "baseFeeUpdateFraction": 1112826
       }
+    },
+    "aura": {
+      "stepDuration": 5,
+      "validators": {
+        "list": [
+          "0x7435ed30a8b4aeb0877cef0c6e8cffe834eb865f"
+        ],
+        "safeContract": null,
+        "contract": null,
+        "multi": null
+      },
+      "startStep": null,
+      "validateScoreTransition": null,
+      "validateStepTransition": null,
+      "immediateTransitions": null,
+      "blockReward": 0,
+      "blockRewardContractTransition": null,
+      "blockRewardContractAddress": null,
+      "blockRewardContractTransitions": null,
+      "maximumUncleCountTransition": 0,
+      "maximumUncleCount": 0,
+      "strictEmptyStepsTransition": null,
+      "randomnessContractAddress": {
+        "0": "0x3000000000000000000000000000000000000001"
+      },
+      "blockGasLimitContractTransitions": {
+        "0": "0x4000000000000000000000000000000000000001"
+      },
+      "PosdaoTransition": 0,
+      "registrar": "0x6000000000000000000000000000000000000000",
+      "withdrawalContractAddress": null,
+      "rewriteBytecode": null,
+      "eip1559FeeCollector": "0x1559000000000000000000000000000000000000"
     }
   },
   "nonce": "0x0",
   "timestamp": "0x0",
   "extraData": "0x68697665636861696e",
   "gasLimit": "0x5f5e100",
-  "difficulty": "0x20000",
+  "difficulty": "0x0",
   "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "coinbase": "0x0000000000000000000000000000000000000000",
   "alloc": {
@@ -139,7 +171,8 @@
   "number": "0x0",
   "gasUsed": "0x0",
   "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "baseFeePerGas": null,
+  "baseFeePerGas": "0x3b9aca00",
   "excessBlobGas": null,
-  "blobGasUsed": null
+  "blobGasUsed": null,
+  "slotNumber": null
 }
