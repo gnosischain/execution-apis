@@ -192,8 +192,8 @@ This repository is licensed under [CC0][license].
 [eip-1767]: https://eips.ethereum.org/EIPS/eip-1767
 [contributors-guide]: https://github.com/ethereum/execution-apis/blob/main/docs-api/docs/contributors-guide.md
 [json-schema]: https://json-schema.org
-[hive]: https://github.com/ethereum/hive
-[rpc-compat]: https://github.com/ethereum/hive/tree/master/simulators/ethereum/rpc-compat
+[hive]: https://github.com/gnosischain/hive
+[rpc-compat]: https://github.com/gnosischain/hive/tree/master/simulators/ethereum/rpc-compat
 [hivetests]: https://hive.ethpandaops.io
 [semver]: https://semver.org/
 [test-gen]: https://github.com/ethereum/execution-apis/blob/main/docs-api/docs/tests.md
