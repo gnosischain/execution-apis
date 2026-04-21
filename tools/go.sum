@@ -96,8 +96,8 @@ github.com/getkin/kin-openapi v0.53.0/go.mod h1:7Yn5whZr5kJi6t+kShccXS8ae1APpYTW
 github.com/getsentry/sentry-go v0.27.0 h1:Pv98CIbtB3LkMWmXi4Joa5OOcwbmnX88sF5qbK3r3Ps=
 github.com/getsentry/sentry-go v0.27.0/go.mod h1:lc76E2QywIyW8WuBnwl8Lc4bkmQH4+w1gwTf25trprY=
 github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
-github.com/gnosischain/go-ethereum v1.17.1-gc.3 h1:/g3qp9iquZR7kFSREXAEZ2C72/O3W3ppLCIjxwDILKY=
-github.com/gnosischain/go-ethereum v1.17.1-gc.3/go.mod h1:8pHm1LHRLMdKNnoOW6wdDJq3ScwRud26q7yuNaLyyNQ=
+github.com/gnosischain/go-ethereum v1.17.3-0.20260420205246-edf1ece153cf h1:lDmRtKo/YySP4QJjm/9XEfpApX2A+4s3rrAA7J1i6Wo=
+github.com/gnosischain/go-ethereum v1.17.3-0.20260420205246-edf1ece153cf/go.mod h1:vWgQd6wRW4su1Ywz+ojwY6EqdoVku2m5QBLiJ0mZttI=
 github.com/go-chi/chi/v5 v5.0.0/go.mod h1:BBug9lr0cqtdAhsu6R4AAdvufI0/XBzAQSsUqJpoZOs=
 github.com/go-errors/errors v1.4.2 h1:J6MZopCL4uSllY1OfXM374weqZFFItUbrImctkmUxIA=
 github.com/go-errors/errors v1.4.2/go.mod h1:sIVyrIiJhuEF+Pj9Ebtd6P/rEYROXFi3BopGUQ5a5Og=
