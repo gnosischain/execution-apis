@@ -1,4 +1,4 @@
-module github.com/ethereum/execution-apis/tools
+module github.com/gnosischain/execution-apis/tools
 
 go 1.25.0
 

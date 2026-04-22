@@ -2,7 +2,7 @@
   summary: Fetches blobs from the blob pool
   externalDocs:
     description: Method specification
-    url: https://github.com/ethereum/execution-apis/blob/main/src/engine/cancun.md#engine_getBlobsV1
+    url: https://github.com/gnosischain/execution-apis/blob/main/src/engine/cancun.md#engine_getBlobsV1
   params:
     - name: Blob versioned hashes
       required: true
@@ -37,7 +37,7 @@
   summary: Fetch blobs from the blob mempool
   externalDocs:
     description: Method specification
-    url: https://github.com/ethereum/execution-apis/blob/main/src/engine/osaka.md#engine_getBlobsV2
+    url: https://github.com/gnosischain/execution-apis/blob/main/src/engine/osaka.md#engine_getBlobsV2
   params:
     - name: Blob versioned hashes
       required: true
@@ -197,7 +197,7 @@
   summary: Fetch blobs from the blob mempool, returning partial hits
   externalDocs:
     description: Method specification
-    url: https://github.com/ethereum/execution-apis/blob/main/src/engine/osaka.md#engine_getBlobsV3
+    url: https://github.com/gnosischain/execution-apis/blob/main/src/engine/osaka.md#engine_getBlobsV3
   params:
     - name: Blob versioned hashes
       required: true

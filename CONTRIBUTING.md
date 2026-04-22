@@ -25,7 +25,7 @@ generation and format, see the [Tests documentation](docs-api/docs/tests.md).
 
 4. **Merge and Hive** — Once the spec is merged and tests pass,
    [hive](https://github.com/gnosischain/hive)'s
-   [rpc-compat](https://github.com/gnosischain/hive/tree/master/simulators/ethereum/rpc-compat)
+   [rpc-compat](https://github.com/gnosischain/hive/tree/master/simulators/gnosis/rpc-compat)
    simulator pulls the `main` branch and automatically tests execution clients.
 
 5. **Hive Updates** — Occasionally, hive/rpc-compat may need to be updated to

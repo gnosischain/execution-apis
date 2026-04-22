@@ -12,7 +12,7 @@ Ethereum clients as modules that can be swapped at will.
 ### Contributing
 
 Please see
-[CONTRIBUTING.md](https://github.com/ethereum/execution-apis/blob/main/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/gnosischain/execution-apis/blob/main/CONTRIBUTING.md)
 for a concise workflow overview, and the [contributors guide][contributors-guide]
 for the full process of standardizing new API methods and making changes to
 existing ones. Information on test generation can be found in
@@ -187,13 +187,13 @@ This repository is licensed under [CC0][license].
 
 [playground]: https://ethereum.github.io/execution-apis
 [openrpc]: https://open-rpc.org
-[graphql-schema]: http://graphql-schema.ethdevops.io/?url=https://raw.githubusercontent.com/ethereum/execution-apis/main/graphql.json
+[graphql-schema]: http://graphql-schema.ethdevops.io/?url=https://raw.githubusercontent.com/gnosischain/execution-apis/main/graphql.json
 [eip-1767]: https://eips.ethereum.org/EIPS/eip-1767
-[contributors-guide]: https://github.com/ethereum/execution-apis/blob/main/docs-api/docs/contributors-guide.md
+[contributors-guide]: https://github.com/gnosischain/execution-apis/blob/main/docs-api/docs/contributors-guide.md
 [json-schema]: https://json-schema.org
 [hive]: https://github.com/gnosischain/hive
-[rpc-compat]: https://github.com/gnosischain/hive/tree/master/simulators/ethereum/rpc-compat
+[rpc-compat]: https://github.com/gnosischain/hive/tree/master/simulators/gnosis/rpc-compat
 [hivetests]: https://hive.ethpandaops.io
 [semver]: https://semver.org/
-[test-gen]: https://github.com/ethereum/execution-apis/blob/main/docs-api/docs/tests.md
-[license]: https://github.com/ethereum/execution-apis/blob/main/LICENSE
+[test-gen]: https://github.com/gnosischain/execution-apis/blob/main/docs-api/docs/tests.md
+[license]: https://github.com/gnosischain/execution-apis/blob/main/LICENSE
