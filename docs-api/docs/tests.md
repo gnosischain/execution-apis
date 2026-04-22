@@ -76,8 +76,8 @@ A good final verification of tests is to run them in the hive simulator
 [`rpc-compat`][rpc-compat]. More information on how to run custom tests in the
 simulator can be found in the simulator documentation.
 
-[hive]: https://github.com/ethereum/hive
+[hive]: https://github.com/gnosischain/hive
 [hivetests]: https://hive.ethpandaops.io
-[rpc-compat]: https://github.com/ethereum/hive/tree/master/simulators/ethereum/rpc-compat
-[rpctestgen]: https://github.com/ethereum/execution-apis/tree/main/tools
-[tools-readme]: https://github.com/ethereum/execution-apis/blob/main/tools/README.md
+[rpc-compat]: https://github.com/gnosischain/hive/tree/master/simulators/gnosis/rpc-compat
+[rpctestgen]: https://github.com/gnosischain/execution-apis/tree/main/tools
+[tools-readme]: https://github.com/gnosischain/execution-apis/blob/main/tools/README.md

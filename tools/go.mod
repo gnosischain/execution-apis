@@ -1,11 +1,11 @@
-module github.com/ethereum/execution-apis/tools
+module github.com/gnosischain/execution-apis/tools
 
 go 1.25.0
 
 require (
 	github.com/alexflint/go-arg v1.4.3
 	github.com/cespare/cp v1.1.1
-	github.com/ethereum/go-ethereum v1.17.3-0.20260413114535-ecae519972c0
+	github.com/ethereum/go-ethereum v1.17.1-gc.3
 	github.com/holiman/uint256 v1.3.2
 	github.com/mattn/go-jsonpointer v0.0.1
 	github.com/open-rpc/meta-schema v0.0.0-20210416041958-626a15d0a618
@@ -68,6 +68,7 @@ require (
 	github.com/graph-gophers/graphql-go v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.7 // indirect
 	github.com/hashicorp/go-bexpr v0.1.10 // indirect
+	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/holiman/billy v0.0.0-20250707135307-f2f9b9aae7db // indirect
 	github.com/holiman/bloomfilter/v2 v2.0.3 // indirect
 	github.com/huin/goupnp v1.3.0 // indirect
@@ -139,3 +140,5 @@ require (
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+replace github.com/ethereum/go-ethereum => github.com/gnosischain/go-ethereum v1.17.3-0.20260420205246-edf1ece153cf

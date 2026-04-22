@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ethereum/execution-apis/tools/internal/specgen"
+	"github.com/gnosischain/execution-apis/tools/internal/specgen"
 )
 
 var methodFilesFlag = []string{}

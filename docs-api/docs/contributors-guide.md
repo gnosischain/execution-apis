@@ -185,13 +185,13 @@ clients via the [rpc-compat][rpc-compat] simulator. How it works:
 * **Future** — Versioned releases will allow hive to pin to specific
   execution-apis versions.
 
-[exec-apis]: https://github.com/ethereum/execution-apis
+[exec-apis]: https://github.com/gnosischain/execution-apis
 [pm]: https://github.com/ethereum/pm
 [test-gen]: ./tests.md
-[wordlist]: https://github.com/ethereum/execution-apis/blob/main/wordlist.txt
+[wordlist]: https://github.com/gnosischain/execution-apis/blob/main/wordlist.txt
 [discord]: https://discord.gg/tWQwJSaqEE
-[tools-readme]: https://github.com/ethereum/execution-apis/blob/main/tools/README.md
-[rpctestgen]: https://github.com/ethereum/execution-apis/tree/main/tools
-[hive]: https://github.com/ethereum/hive
-[rpc-compat]: https://github.com/ethereum/hive/tree/master/simulators/ethereum/rpc-compat
+[tools-readme]: https://github.com/gnosischain/execution-apis/blob/main/tools/README.md
+[rpctestgen]: https://github.com/gnosischain/execution-apis/tree/main/tools
+[hive]: https://github.com/gnosischain/hive
+[rpc-compat]: https://github.com/gnosischain/hive/tree/master/simulators/gnosis/rpc-compat
 [hivetests]: https://hive.ethpandaops.io
