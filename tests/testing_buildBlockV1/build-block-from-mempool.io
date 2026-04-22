@@ -1,4 +1,5 @@
 // builds a block from mempool using testing_buildBlockV1 with null transactions parameter
+// speconly: client response is only checked for schema validity.
 >> {"jsonrpc":"2.0","id":1,"method":"eth_sendRawTransaction","params":["0x02f870870c72dd9d5e883e808201f4833085cf825208947dcd17433742f4c0ca53122ab541d0ba67fc27df8203e880c001a00c68683fb0bd2a0733396f7f495b9367fa711e62cfa350f787bfbbeaccfdeb97a0786183ebe1e1363a437fa8a717fe7499fd55c5a99202d1937680b3c6f1806917"]}
 << {"jsonrpc":"2.0","id":1,"result":"0x011112f15ebb51e0c88649372c42d0d45b6028a5106a36f424eab2a1975962d4"}
 >> {"jsonrpc":"2.0","id":2,"method":"testing_buildBlockV1","params":["0x5fd5cde53f7871d41e72c88451f98ce0c523f1296b360f21eca03f5b01c33a72",{"parentBeaconBlockRoot":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884365149a42212e8822","prevRandao":"0x0000000000000000000000000000000000000000000000000000000000000000","suggestedFeeRecipient":"0x0000000000000000000000000000000000000000","timestamp":"0x1ce","withdrawals":[]},null,"0x"]}
