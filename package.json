@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethereum/execution-apis.git"
+    "url": "git+https://github.com/gnosischain/execution-apis.git"
   },
   "author": "Ethereum",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/ethereum/execution-apis/issues"
+    "url": "https://github.com/gnosischain/execution-apis/issues"
   },
-  "homepage": "https://github.com/ethereum/execution-apis#readme",
+  "homepage": "https://github.com/gnosischain/execution-apis#readme",
   "dependencies": {
     "@docusaurus/core": "^3.9.2",
     "@docusaurus/plugin-client-redirects": "^3.9.2",

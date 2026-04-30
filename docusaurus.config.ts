@@ -3,8 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Ethereum Execution APIs',
-  tagline: 'JSON-RPC API specification for Ethereum execution clients',
+  title: 'Gnosis Execution APIs',
+  tagline: 'JSON-RPC API specification for Gnosis execution clients',
   favicon: 'img/favicon.ico',
 
   /*future: { v4: true },*/
@@ -74,12 +74,12 @@ const config: Config = {
       title: 'Execution APIs',
       items: [
         { type: 'docSidebar', sidebarId: 'docsSidebar', docsPluginId: 'api', label: 'Docs', position: 'left' },
-        { href: 'https://github.com/ethereum/execution-apis', label: 'GitHub', position: 'right' },
+        { href: 'https://github.com/gnosischain/execution-apis', label: 'GitHub', position: 'right' },
       ],
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} Ethereum Foundation. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Gnosis Chain. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
