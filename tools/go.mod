@@ -148,6 +148,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace github.com/ethereum/go-ethereum => /Users/chetnamittal/go-ethereum
+replace github.com/ethereum/go-ethereum => github.com/chetna-mittal/go-ethereum v1.17.3-rc
 
 tool github.com/open-rpc/openrpc-linter
