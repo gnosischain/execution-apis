@@ -148,6 +148,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace github.com/ethereum/go-ethereum => github.com/gnosischain/go-ethereum v1.17.3-gc
+replace github.com/ethereum/go-ethereum => /Users/chetnamittal/go-ethereum
 
 tool github.com/open-rpc/openrpc-linter

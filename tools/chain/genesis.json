@@ -1,6 +1,6 @@
 {
   "config": {
-    "chainId": 3503995874084926,
+    "chainId": 100,
     "homesteadBlock": 0,
     "eip150Block": 0,
     "eip155Block": 0,
@@ -36,7 +36,7 @@
       "stepDuration": 5,
       "validators": {
         "list": [
-          "0x7435ed30a8b4aeb0877cef0c6e8cffe834eb865f"
+          "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
         ],
         "safeContract": null,
         "contract": null,
@@ -64,7 +64,9 @@
       "withdrawalContractAddress": "0xbabe2bed00000000000000000000000000000003",
       "rewriteBytecode": null,
       "eip1559FeeCollector": "0x1559000000000000000000000000000000000000"
-    }
+    },
+    "minBlobGasPrice": 1000000000,
+    "maxBlobsPerTransaction": 2
   },
   "nonce": "0x0",
   "timestamp": "0x0",

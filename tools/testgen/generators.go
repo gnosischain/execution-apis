@@ -864,7 +864,7 @@ var EthEstimateGas = MethodTests{
 					"nonce": hexutil.Uint64(nonce),
 					"authorizationList": []map[string]any{
 						{
-							"chainId": "0x1",
+							"chainId": "0x64",
 							"address": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 							"nonce":   "0x0",
 							"yParity": "0x0",
@@ -899,7 +899,7 @@ var EthEstimateGas = MethodTests{
 					"to":               to,
 					"value":            hexutil.Uint64(1),
 					"nonce":            hexutil.Uint64(nonce),
-					"maxFeePerBlobGas": hexutil.Uint64(params.BlobTxMinBlobGasprice),
+					"maxFeePerBlobGas": hexutil.Uint64(params.GnosisBlobTxMinBlobGasprice),
 					"blobVersionedHashes": []string{
 						"0x0100000000000000000000000000000000000000000000000000000000000000",
 					},
@@ -1793,7 +1793,7 @@ var EthSendRawTransaction = MethodTests{
 						{Address: emitContract, StorageKeys: []common.Hash{{0}, {1}}},
 					},
 					BlobHashes: sidecar.BlobHashes(),
-					BlobFeeCap: uint256.NewInt(params.BlobTxMinBlobGasprice),
+					BlobFeeCap: uint256.NewInt(params.GnosisBlobTxMinBlobGasprice),
 					Sidecar:    sidecar,
 				}
 				tx := t.chain.MustSignTx(sender, txdata)
