@@ -46,6 +46,7 @@ FP
 getblobsbundlev
 getblobsv
 getclientversionv
+gnosischain
 graphql
 gwei
 https
