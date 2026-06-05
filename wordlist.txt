@@ -1,6 +1,8 @@
 ACDT
 apis
 arg
+BLS
+BN
 attributesv
 besu
 blobandproofv
@@ -19,6 +21,7 @@ cli
 clientversionv
 CLs
 configurationv
+CRC
 crypto
 DocToc
 eg
@@ -39,9 +42,11 @@ EVM
 exitv
 feeRecipient
 forkchoiceupdatedresponsev
+FP
 getblobsbundlev
 getblobsv
 getclientversionv
+gnosischain
 graphql
 gwei
 https
@@ -53,6 +58,8 @@ JWT
 kzg
 mempool
 merkle
+MSM
+MUL
 multicallV
 npm
 ommers

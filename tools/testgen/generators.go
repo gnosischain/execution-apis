@@ -91,6 +91,7 @@ var AllMethods = []MethodTests{
 	DebugGetRawReceipts,
 	DebugGetRawTransaction,
 	EthBlobBaseFee,
+	EthConfig,
 	NetVersion,
 	TestingBuildBlockV1,
 	TxpoolStatus,
@@ -863,7 +864,7 @@ var EthEstimateGas = MethodTests{
 					"nonce": hexutil.Uint64(nonce),
 					"authorizationList": []map[string]any{
 						{
-							"chainId": "0x1",
+							"chainId": "0x64",
 							"address": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 							"nonce":   "0x0",
 							"yParity": "0x0",
@@ -898,7 +899,7 @@ var EthEstimateGas = MethodTests{
 					"to":               to,
 					"value":            hexutil.Uint64(1),
 					"nonce":            hexutil.Uint64(nonce),
-					"maxFeePerBlobGas": hexutil.Uint64(params.BlobTxMinBlobGasprice),
+					"maxFeePerBlobGas": hexutil.Uint64(params.GnosisBlobTxMinBlobGasprice),
 					"blobVersionedHashes": []string{
 						"0x0100000000000000000000000000000000000000000000000000000000000000",
 					},
@@ -1792,7 +1793,7 @@ var EthSendRawTransaction = MethodTests{
 						{Address: emitContract, StorageKeys: []common.Hash{{0}, {1}}},
 					},
 					BlobHashes: sidecar.BlobHashes(),
-					BlobFeeCap: uint256.NewInt(params.BlobTxMinBlobGasprice),
+					BlobFeeCap: uint256.NewInt(params.GnosisBlobTxMinBlobGasprice),
 					Sidecar:    sidecar,
 				}
 				tx := t.chain.MustSignTx(sender, txdata)
@@ -1850,6 +1851,21 @@ var EthBlobBaseFee = MethodTests{
 				var result hexutil.Big
 				err := t.rpc.CallContext(ctx, &result, "eth_blobBaseFee")
 				return err
+			},
+		},
+	},
+}
+
+// EthConfig stores a list of all tests against the method.
+var EthConfig = MethodTests{
+	"eth_config",
+	[]Test{
+		{
+			Name:  "get-config",
+			About: "retrieves the client's current fork configuration as defined by EIP-7910",
+			Run: func(ctx context.Context, t *T) error {
+				var result map[string]any
+				return t.rpc.CallContext(ctx, &result, "eth_config")
 			},
 		},
 	},
