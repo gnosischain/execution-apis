@@ -90,8 +90,13 @@ var AllMethods = []MethodTests{
 	DebugGetRawBlock,
 	DebugGetRawReceipts,
 	DebugGetRawTransaction,
+	DebugTraceTransaction,
+	DebugTraceBlockByNumber,
+	DebugTraceBlockByHash,
+	EthBaseFee,
 	EthBlobBaseFee,
 	EthConfig,
+	EthCapabilities,
 	NetVersion,
 	TestingBuildBlockV1,
 	TxpoolStatus,
@@ -199,6 +204,22 @@ the delegation designator.`,
 				return nil
 			},
 		},
+		{
+			Name:  "get-code-default-block",
+			About: "requests code of an existing contract with the block parameter omitted, which defaults to latest",
+			Run: func(ctx context.Context, t *T) error {
+				var got hexutil.Bytes
+				err := t.rpc.CallContext(ctx, &got, "eth_getCode", emitContract)
+				if err != nil {
+					return err
+				}
+				want := t.chain.state[emitContract].Code
+				if !bytes.Equal(got, want) {
+					return fmt.Errorf("unexpected code (got: %s, want %s)", got, want)
+				}
+				return nil
+			},
+		},
 	},
 }
 
@@ -263,6 +284,27 @@ var EthGetStorage = MethodTests{
 				err := t.rpc.CallContext(ctx, nil, "eth_getStorageAt", "0xaa00000000000000000000000000000000000000", "0xasdf", "latest")
 				if err == nil {
 					return fmt.Errorf("expected error")
+				}
+				return nil
+			},
+		},
+		{
+			Name:  "get-storage-default-block",
+			About: "gets storage of a contract with the block parameter omitted, which defaults to latest",
+			Run: func(ctx context.Context, t *T) error {
+				addr := emitContract
+				key := common.Hash{}
+				var got hexutil.Bytes
+				if err := t.rpc.CallContext(ctx, &got, "eth_getStorageAt", addr, key); err != nil {
+					return err
+				}
+				want := t.chain.Storage(addr, key)
+				if !bytes.Equal(got, want) {
+					return fmt.Errorf("unexpected storage value (got: %s, want %s)", got, want)
+				}
+				nz := slices.ContainsFunc(got, func(b byte) bool { return b != 0 })
+				if !nz {
+					return fmt.Errorf("requested storage slot is zero")
 				}
 				return nil
 			},
@@ -369,6 +411,29 @@ var EthGetStorageValues = MethodTests{
 				return nil
 			},
 		},
+		{
+			Name:  "get-storage-values-default-block",
+			About: "gets storage values with the block parameter omitted, which defaults to latest",
+			Run: func(ctx context.Context, t *T) error {
+				addr := emitContract
+				key := common.Hash{}
+				requests := map[common.Address][]common.Hash{
+					addr: {key},
+				}
+				var result map[common.Address][]hexutil.Bytes
+				if err := t.rpc.CallContext(ctx, &result, "eth_getStorageValues", requests); err != nil {
+					return err
+				}
+				values, ok := result[addr]
+				if !ok {
+					return fmt.Errorf("missing address in result")
+				}
+				if len(values) != 1 || len(values[0]) != 32 {
+					return fmt.Errorf("unexpected result for %s: %v", addr, values)
+				}
+				return nil
+			},
+		},
 	},
 }
 
@@ -466,6 +531,22 @@ var EthGetBalance = MethodTests{
 				// balance shouldn't be zero.
 				if got.ToInt().Sign() <= 0 {
 					return errors.New("invalid historical balance, should be > zero")
+				}
+				return nil
+			},
+		},
+		{
+			Name:  "get-balance-default-block",
+			About: "retrieves an account balance with the block parameter omitted, which defaults to latest",
+			Run: func(ctx context.Context, t *T) error {
+				addr := emitContract
+				var got hexutil.Big
+				if err := t.rpc.CallContext(ctx, &got, "eth_getBalance", addr); err != nil {
+					return err
+				}
+				want := t.chain.Balance(addr)
+				if got.ToInt().Cmp(want) != 0 {
+					return fmt.Errorf("unexpect balance (got: %d, want: %d)", got.ToInt(), want)
 				}
 				return nil
 			},
@@ -1232,6 +1313,25 @@ For such accounts, the nonce stored in state does not match the 'transaction cou
 				return nil
 			},
 		},
+		{
+			Name:  "get-nonce-default-block",
+			About: "gets nonce for a known account with the block parameter omitted, which defaults to latest",
+			Run: func(ctx context.Context, t *T) error {
+				addr := findAccountWithNonce(t.chain)
+				var got hexutil.Uint64
+				if err := t.rpc.CallContext(ctx, &got, "eth_getTransactionCount", addr); err != nil {
+					return err
+				}
+				want := t.chain.state[addr].Nonce
+				if uint64(got) != want {
+					return fmt.Errorf("unexpected nonce (got: %d, want: %d)", uint64(got), want)
+				}
+				if want == 0 {
+					return fmt.Errorf("nonce for account %v is zero", addr)
+				}
+				return nil
+			},
+		},
 	},
 }
 
@@ -1244,10 +1344,6 @@ func findAccountWithNonce(c *Chain) common.Address {
 		}
 	}
 	panic("no account with non-zero nonce found in state")
-}
-
-func matchLegacyValueTransfer(i int, tx *types.Transaction) bool {
-	return tx.Type() == types.LegacyTxType && tx.To() != nil && len(tx.Data()) == 0
 }
 
 func matchLegacyCreate(i int, tx *types.Transaction) bool {
@@ -1266,7 +1362,7 @@ var EthGetTransactionByHash = MethodTests{
 			Name:  "get-legacy-tx",
 			About: "gets a legacy transaction",
 			Run: func(ctx context.Context, t *T) error {
-				want := t.chain.FindTransaction("legacy tx", matchLegacyValueTransfer)
+				want := t.chain.LegacyValueTransfer()
 				got, _, err := t.eth.TransactionByHash(ctx, want.Hash())
 				if err != nil {
 					return err
@@ -1406,7 +1502,7 @@ var EthGetTransactionReceipt = MethodTests{
 			Name:  "get-legacy-receipt",
 			About: "gets the receipt for a legacy value transfer tx",
 			Run: func(ctx context.Context, t *T) error {
-				tx := t.chain.FindTransaction("legacy tx", matchLegacyValueTransfer)
+				tx := t.chain.LegacyValueTransfer()
 				receipt, err := t.eth.TransactionReceipt(ctx, tx.Hash())
 				if err != nil {
 					return err
@@ -1841,6 +1937,21 @@ var EthMaxPriorityFeePerGas = MethodTests{
 	},
 }
 
+var EthBaseFee = MethodTests{
+	"eth_baseFee",
+	[]Test{
+		{
+			Name:  "get-current-basefee",
+			About: "gets the base fee of the next block in wei",
+			Run: func(ctx context.Context, t *T) error {
+				var result hexutil.Big
+				err := t.rpc.CallContext(ctx, &result, "eth_baseFee")
+				return err
+			},
+		},
+	},
+}
+
 var EthBlobBaseFee = MethodTests{
 	"eth_blobBaseFee",
 	[]Test{
@@ -1866,6 +1977,44 @@ var EthConfig = MethodTests{
 			Run: func(ctx context.Context, t *T) error {
 				var result map[string]any
 				return t.rpc.CallContext(ctx, &result, "eth_config")
+			},
+		},
+	},
+}
+
+// EthCapabilities stores a list of all tests against the method.
+var EthCapabilities = MethodTests{
+	"eth_capabilities",
+	[]Test{
+		{
+			Name:  "get-capabilities",
+			About: "retrieves the node's effective routing capabilities",
+			// Retention windows and delete strategies are client- and
+			// config-specific (e.g. state history, tx/log index windows differ
+			// per client and per node configuration), so the response is only
+			// checked for spec validity. Only the head is client-agnostic and
+			// is asserted against the chain head below.
+			SpecOnly: true,
+			Run: func(ctx context.Context, t *T) error {
+				var result struct {
+					Head struct {
+						Number hexutil.Uint64 `json:"number"`
+						Hash   common.Hash    `json:"hash"`
+					} `json:"head"`
+				}
+				if err := t.rpc.CallContext(ctx, &result, "eth_capabilities"); err != nil {
+					return err
+				}
+				// The head must reflect the current chain head; number and hash
+				// are derived from the same header and must be consistent.
+				head := t.chain.Head()
+				if uint64(result.Head.Number) != head.NumberU64() {
+					return fmt.Errorf("unexpected head number (got: %d, want: %d)", uint64(result.Head.Number), head.NumberU64())
+				}
+				if result.Head.Hash != head.Hash() {
+					return fmt.Errorf("unexpected head hash (got: %s, want: %s)", result.Head.Hash, head.Hash())
+				}
+				return nil
 			},
 		},
 	},
@@ -2009,6 +2158,27 @@ var EthGetProof = MethodTests{
 				return nil
 			},
 		},
+		{
+			Name:  "get-account-proof-default-block",
+			About: "requests the account proof with the block parameter omitted, which defaults to latest",
+			Run: func(ctx context.Context, t *T) error {
+				type accountResult struct {
+					Balance *hexutil.Big `json:"balance"`
+				}
+				var result accountResult
+				if err := t.rpc.CallContext(ctx, &result, "eth_getProof", emitContract, []string{}); err != nil {
+					return err
+				}
+				balance := t.chain.Balance(emitContract)
+				if result.Balance.ToInt().Cmp(balance) != 0 {
+					return fmt.Errorf("unexpected balance (got: %s, want: %s)", result.Balance, balance)
+				}
+				if result.Balance.ToInt().Sign() == 0 {
+					return fmt.Errorf("balance is zero, does the account exist?")
+				}
+				return nil
+			},
+		},
 	},
 }
 
@@ -2102,6 +2272,34 @@ var EthGetLogs = MethodTests{
 					FromBlock: new(big.Int).SetUint64(startBlock),
 					ToBlock:   new(big.Int).SetUint64(endBlock),
 					Topics:    [][]common.Hash{{}, {*info.LogTopic1}},
+				})
+				if err != nil {
+					return err
+				}
+				if len(result) != 1 {
+					return fmt.Errorf("result contains %d logs, want 1", len(result))
+				}
+				return nil
+			},
+		},
+		{
+			Name:  "topic-null-wildcard",
+			About: "queries for logs with a null topic in position zero, acting as a wildcard for that position",
+			Run: func(ctx context.Context, t *T) error {
+				// Find a topic.
+				i := slices.IndexFunc(t.chain.txinfo.LegacyEmit, func(tx TxInfo) bool {
+					return tx.Block > 2
+				})
+				if i == -1 {
+					return fmt.Errorf("no suitable tx found")
+				}
+				info := t.chain.txinfo.LegacyEmit[i]
+				startBlock := uint64(info.Block - 1)
+				endBlock := uint64(info.Block + 2)
+				result, err := t.eth.FilterLogs(ctx, ethereum.FilterQuery{
+					FromBlock: new(big.Int).SetUint64(startBlock),
+					ToBlock:   new(big.Int).SetUint64(endBlock),
+					Topics:    [][]common.Hash{nil, {*info.LogTopic1}},
 				})
 				if err != nil {
 					return err
