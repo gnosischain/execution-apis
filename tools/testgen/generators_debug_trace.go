@@ -369,7 +369,7 @@ var DebugTraceTransaction = MethodTests{
 			About:    "traces a legacy EOA-to-EOA value transfer; structLogs must be empty since no EVM code runs",
 			SpecOnly: true,
 			Run: func(ctx context.Context, t *T) error {
-				tx := t.chain.FindTransaction("legacy value transfer", matchLegacyValueTransfer)
+				tx := t.chain.LegacyValueTransfer()
 				var result map[string]interface{}
 				if err := t.rpc.CallContext(ctx, &result, "debug_traceTransaction", tx.Hash()); err != nil {
 					return err

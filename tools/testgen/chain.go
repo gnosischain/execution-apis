@@ -167,6 +167,18 @@ func (c *Chain) FindTransaction(matchdesc string, match func(int, *types.Transac
 	return m
 }
 
+// LegacyValueTransfer returns the first legacy value transfer recorded by hivechain.
+// Using txinfo avoids mistaking other empty-calldata legacy transactions for test transfers.
+func (c *Chain) LegacyValueTransfer() *types.Transaction {
+	if len(c.txinfo.LegacyTransfers) == 0 {
+		panic("no legacy value transfers in chain transaction metadata")
+	}
+	want := c.txinfo.LegacyTransfers[0].TxHash
+	return c.FindTransaction("legacy value transfer", func(_ int, tx *types.Transaction) bool {
+		return tx.Hash() == want
+	})
+}
+
 // GetSender returns the address associated with account at the index in the
 // pre-funded accounts list.
 func (c *Chain) GetSender(idx int) (common.Address, uint64) {

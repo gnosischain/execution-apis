@@ -1346,10 +1346,6 @@ func findAccountWithNonce(c *Chain) common.Address {
 	panic("no account with non-zero nonce found in state")
 }
 
-func matchLegacyValueTransfer(i int, tx *types.Transaction) bool {
-	return tx.Type() == types.LegacyTxType && tx.To() != nil && len(tx.Data()) == 0
-}
-
 func matchLegacyCreate(i int, tx *types.Transaction) bool {
 	return tx.Type() == types.LegacyTxType && tx.To() == nil
 }
@@ -1366,7 +1362,7 @@ var EthGetTransactionByHash = MethodTests{
 			Name:  "get-legacy-tx",
 			About: "gets a legacy transaction",
 			Run: func(ctx context.Context, t *T) error {
-				want := t.chain.FindTransaction("legacy tx", matchLegacyValueTransfer)
+				want := t.chain.LegacyValueTransfer()
 				got, _, err := t.eth.TransactionByHash(ctx, want.Hash())
 				if err != nil {
 					return err
@@ -1506,7 +1502,7 @@ var EthGetTransactionReceipt = MethodTests{
 			Name:  "get-legacy-receipt",
 			About: "gets the receipt for a legacy value transfer tx",
 			Run: func(ctx context.Context, t *T) error {
-				tx := t.chain.FindTransaction("legacy tx", matchLegacyValueTransfer)
+				tx := t.chain.LegacyValueTransfer()
 				receipt, err := t.eth.TransactionReceipt(ctx, tx.Hash())
 				if err != nil {
 					return err
