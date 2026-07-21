@@ -6806,4 +6806,3 @@ var TxpoolContentFrom = MethodTests{
 		},
 	},
 }
-
